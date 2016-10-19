@@ -5,7 +5,6 @@ package Daos;
  * @author Chris
  */
 import Dtos.BookStock;
-import Dtos.BookStockDaoInterface;
 import Dtos.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
