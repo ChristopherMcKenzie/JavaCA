@@ -138,7 +138,42 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
 
     @Override
     public boolean ReturnABook(String bookName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = null;
+        PreparedStatement ps = null;
+        int rowsAffected = 0;
+        
+        try{
+            con = getConnection();
+
+            String query = "UPDATE bookstock set copies + 1 WHERE bookName = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, bookName);
+         
+            rowsAffected = ps.executeUpdate(); 
+            
+        }catch (SQLException e) {
+            System.out.println("Exception occured in the EditingABook() method: " + e.getMessage());
+            
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.out.println("Exception occured in the finally section of the EditingABook() method");
+                e.getMessage();
+                
+            }
+        }
+        if(rowsAffected > 0)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 
     @Override
