@@ -18,6 +18,10 @@ public interface BookStockDaoInterface {
     //getting a book by its name wildcard
     public boolean ReturnABook(String bookName);
     //return a book (should change copies in databasee)
+    public boolean takeOutABook(int bookID);
+    
+    //take out a book decreasing the copies
+    
     public boolean RemoveABook(int bookID);
     //should remove a book from libary (record compeltly removed)(admin only)
     public boolean AddingABook(BookStock b);

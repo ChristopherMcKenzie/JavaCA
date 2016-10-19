@@ -177,24 +177,25 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
     }
 
     @Override
-    public boolean RemoveABook(int bookID) {
+    public boolean takeOutABook(int bookID)
+    {
         Connection con = null;
         PreparedStatement ps = null;
         int rowsAffected = 0;
-        try
-        {
+        
+        try{
             con = getConnection();
-            
-            String query = "DELETE FROM bookStock where bookID = ?";
+
+            String query = "UPDATE bookstock set copies - 1 where bookID = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, bookID);
-            rowsAffected = ps.executeUpdate();
+            rowsAffected = ps.executeUpdate(); 
             
         }catch (SQLException e) {
-            System.out.println("Exception occured in the removeABook() method: " + e.getMessage());
+            System.out.println("Exception occured in the decreasingCopies() method: " + e.getMessage());
+            
         } finally {
             try {
-                
                 if (ps != null) {
                     ps.close();
                 }
@@ -202,10 +203,12 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
                     freeConnection(con);
                 }
             } catch (SQLException e) {
-                System.out.println("Exception occured in the finally section of the removeABook() method: " + e.getMessage());
+                System.out.println("Exception occured in the finally section of the decreasingCopies() Member method");
+                e.getMessage();
+                
             }
-    }
-        if(rowsAffected < 0)
+        }
+        if(rowsAffected > 0)
         {
             return true;
         }
@@ -257,6 +260,9 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
             return false;
     }
 
+    /*
+        Admin controlled methods
+    */
     @Override
     public boolean EditingABook(int bookID) {
         Connection con = null;
@@ -312,7 +318,7 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
             rowsAffected = ps.executeUpdate(); 
             
         }catch (SQLException e) {
-            System.out.println("Exception occured in the increasingCopies() method: " + e.getMessage());
+            System.out.println("Exception occured in the increasingCopiesAdmin() method: " + e.getMessage());
             
         } finally {
             try {
@@ -323,7 +329,7 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
                     freeConnection(con);
                 }
             } catch (SQLException e) {
-                System.out.println("Exception occured in the finally section of the IncreasingCopies() method");
+                System.out.println("Exception occured in the finally section of the IncreasingCopiesAdmin() method");
                 e.getMessage();
                 
             }
@@ -344,14 +350,14 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
         
         try{
             con = getConnection();
-
+            //Updates the copies to lower "set copies -1" 
             String query = "UPDATE bookstock set copies - 1 where bookID = ?";
             ps = con.prepareStatement(query);
             ps.setInt(1, bookId);
             rowsAffected = ps.executeUpdate(); 
             
         }catch (SQLException e) {
-            System.out.println("Exception occured in the decreasingCopies() method: " + e.getMessage());
+            System.out.println("Exception occured in the decreasingCopiesAdmin() method: " + e.getMessage());
             
         } finally {
             try {
@@ -374,5 +380,40 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
         else
             return false;
     }
-    
+    @Override
+    public boolean RemoveABook(int bookID) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        int rowsAffected = 0;
+        try
+        {
+            con = getConnection();
+            
+            String query = "DELETE FROM bookStock where bookID = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, bookID);
+            rowsAffected = ps.executeUpdate();
+            
+        }catch (SQLException e) {
+            System.out.println("Exception occured in the removeABook() method: " + e.getMessage());
+        } finally {
+            try {
+                
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.out.println("Exception occured in the finally section of the removeABook() method: " + e.getMessage());
+            }
+    }
+        if(rowsAffected < 0)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
 }
