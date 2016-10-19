@@ -28,12 +28,12 @@ public class Users implements Comparable<Users> {
     private String email;
     private int booksLoaned;
     private int Admin;
-    private int LoggedIn;
+    
 
     public Users() {
     }
 
-    public Users(String username, String password, String Fname, String Lname, String Address, String email, int booksLoaned, int Admin, int LoggedIn) {
+    public Users(String username, String password, String Fname, String Lname, String Address, String email, int booksLoaned, int Admin) {
 
         this.username = username;
         this.password = password;
@@ -43,7 +43,7 @@ public class Users implements Comparable<Users> {
         this.email = email;
         this.booksLoaned = booksLoaned;
         this.Admin = Admin;
-        this.LoggedIn = LoggedIn;
+        
     }
 
     public int getUser_id() {
@@ -82,9 +82,7 @@ public class Users implements Comparable<Users> {
         return Admin;
     }
 
-    public int getLoggedIn() {
-        return LoggedIn;
-    }
+   
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
@@ -120,10 +118,6 @@ public class Users implements Comparable<Users> {
 
     public void setAdmin(int Admin) {
         this.Admin = Admin;
-    }
-
-    public void setLoggedIn(int LoggedIn) {
-        this.LoggedIn = LoggedIn;
     }
 
     
