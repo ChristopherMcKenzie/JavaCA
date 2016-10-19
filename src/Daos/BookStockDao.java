@@ -264,12 +264,80 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
 
     @Override
     public boolean IncreasingCopiesBook(int bookID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = null;
+        PreparedStatement ps = null;
+        int rowsAffected = 0;
+        
+        try{
+            con = getConnection();
+
+            String query = "UPDATE bookstock set copies + 1 where bookID = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, bookID);
+            rowsAffected = ps.executeUpdate(); 
+            
+        }catch (SQLException e) {
+            System.out.println("Exception occured in the increasingCopies() method: " + e.getMessage());
+            
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.out.println("Exception occured in the finally section of the IncreasingCopies() method");
+                e.getMessage();
+                
+            }
+        }
+        if(rowsAffected > 0)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 
     @Override
     public boolean DescresingCopiesBook(int bookId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = null;
+        PreparedStatement ps = null;
+        int rowsAffected = 0;
+        
+        try{
+            con = getConnection();
+
+            String query = "UPDATE bookstock set copies - 1 where bookID = ?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, bookId);
+            rowsAffected = ps.executeUpdate(); 
+            
+        }catch (SQLException e) {
+            System.out.println("Exception occured in the decreasingCopies() method: " + e.getMessage());
+            
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.out.println("Exception occured in the finally section of the decreasingCopies() method");
+                e.getMessage();
+                
+            }
+        }
+        if(rowsAffected > 0)
+        {
+            return true;
+        }
+        else
+            return false;
     }
     
 }
