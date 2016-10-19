@@ -21,7 +21,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
 
     @Override
     public ArrayList<Users> getAllUsers() {
-       Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Users> users = new ArrayList();
@@ -35,7 +35,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"));
                 users.add(u);
             }
         }catch (SQLException e) {
@@ -75,7 +75,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"));
                 users.add(u);
             }
         }catch (SQLException e) {
@@ -115,7 +115,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"));
                 users.add(u);
             }
         }catch (SQLException e) {
@@ -248,7 +248,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"));
                 users.add(u);
             }
         }catch (SQLException e) {
@@ -289,7 +289,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"));
                 users.add(u);
             }
         }catch (SQLException e) {
