@@ -83,6 +83,7 @@ public class AdminTestApp {
                 if(uDao.LogingInUser(name, password).equals(userlog))
                 {
                     int userid = uDao.getUserbyName(name).getUser_id();
+                    
                     //we are now logged in
                     System.out.println("You have succesfully logged in");
                     
@@ -160,19 +161,136 @@ public class AdminTestApp {
                         case 5:
                             System.out.println("Are you sure you want to logout eg(yes and no)");
                             String ans = input.nextLine().toLowerCase();
-                            
+                            //Logs the user out and ends the while loop
                             if(ans.equals("yes"))
                             {
                                 flag = false;
                             }
                     }
                 }
+                
+                //If the user doesn't type in the right information
                 else if(!(uDao.LogingInUser(name, password).equals(userlog)))
                 {
                     System.out.println("The details you have entered is incorrect try again");
                 }
-                else if(uDao.LogingInUser(name, password).equals(userlog) && uDao.getAdminByName(name).getAdmin())
+                
+                //Checks to see if the user is an admin.
+                else if(uDao.LogingInUser(name, password).equals(userlog) && uDao.getAdminByName(name).getAdmin() == 1)
                 {
+                    System.out.println("Welcome " + name + " you have logged in as an admin");
+                    /*
+                    Because of the way this as been designed the admin and normal user
+                    stuff is the same and copy and pasted into.
+                    This may or may not change as we learn more about how to adapt the program
+                    */
+                    int userid = uDao.getUserbyName(name).getUser_id();
+                    
+                    
+                    System.out.println("What Do you want to do dislpay all titles, whats on loan, borrow a copy, return, logout");
+                    System.out.println("As admin you can also, add titles, edit details , change amount of copies ,\n Remove a book or delete a member");    
+                    
+                    String displayAns = input.nextLine().toLowerCase();
+                    
+                    /*
+                        Typing in an answer will set the value of "switchvar" allowing the user to navigate
+                        the app using switch statements
+                    */
+                    if(displayAns.equals("display"))
+                    {
+                        switchvar = 1;
+                    }
+                    else if(displayAns.equals("on loan"))
+                    {
+                        switchvar = 2;
+                    }
+                    else if(displayAns.equals("loan"))
+                    {
+                        switchvar = 3;
+                    }
+                    else if(displayAns.equals("return"))
+                    {
+                        switchvar = 4;
+                    }
+                    else if(displayAns.equals("logout"))
+                    {
+                        switchvar = 5;
+                    }
+                    else if(displayAns.equals("add"))
+                    {
+                        switchvar = 6;
+                    }
+                    else if(displayAns.equals("edit"))
+                    {
+                        switchvar = 7;
+                    }
+                    else if(displayAns.equals("change copies"))
+                    {
+                        switchvar = 8;
+                    }
+                    else if(displayAns.equals("Remove"))
+                    {
+                        switchvar = 9;
+                    }
+                    else if(displayAns.equals("delete"))
+                    {
+                        switchvar = 10;
+                    }
+                    
+                    switch (switchvar)
+                    {
+                        //Displays all the book
+                        case 1: 
+                        for(BookStock b : books)
+                        {
+                            bDao.getAllBooks().toString();
+                        }
+                        break;
+                        
+                        //Gets all the books on loan
+                        case 2:
+                        for(int i = 0; i < books.size(); i++)
+                        {
+                            BookStock bookloan = bDao.getAllBooks().get(i);
+                            lDao.getAllBooksOnLoan(bookloan).toString();
+                        }
+                        break;
+                        
+                        //Option to take out a book
+                        case 3:
+                        System.out.println("Which book do you wish to loan eg(bookid please)");
+                        int id = input.nextInt();
+                        for(int i = 0; i < 999; i++)
+                        {
+                             bDao.takeOutABook(id);
+                             BookStock bookEntry = bDao.getABookById(id);
+                             lDao.BorrowABook(bookEntry, userid);
+                        }
+                        break;
+                        
+                        //Books a user has loaned out
+                        case 4://figure this out
+                            /*
+                        System.out.println("The following is the books you have loaned");
+                        
+                        lDao.getAllBooksOnLoan(book);
+                        */
+                        break;
+                        
+                        //logging out
+                        case 5:
+                            System.out.println("Are you sure you want to logout eg(yes and no)");
+                            String ans = input.nextLine().toLowerCase();
+                            //Logs the user out and ends the while loop
+                            if(ans.equals("yes"))
+                            {
+                                flag = false;
+                            }
+                            break;
+                        case 6:
+                            System.out.println("Enter in the details of the book");
+                            
+                    }
                     
                 }
             }
