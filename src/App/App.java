@@ -88,6 +88,10 @@ public class App {
                     System.out.println("What Do you want to do dislpay all titles, whats on loan, borrow a copy, return, logout");
                     String displayAns = input.nextLine().toLowerCase();
                     
+                    /*
+                        Typing in an answer will set the value of "switchvar" allowing the user to navigate
+                        the app using switch statements
+                    */
                     if(displayAns.equals("display"))
                     {
                         switchvar = 1;
@@ -113,6 +117,7 @@ public class App {
                     
                     switch (switchvar)
                     {
+                        //Displays all the book
                         case 1: 
                         for(BookStock b : books)
                         {
@@ -120,6 +125,7 @@ public class App {
                         }
                         break;
                         
+                        //Gets all the books on loan
                         case 2:
                         for(int i = 0; i < books.size(); i++)
                         {
@@ -128,6 +134,7 @@ public class App {
                         }
                         break;
                         
+                        //Option to take out a book
                         case 3:
                         System.out.println("Which book do you wish to loan eg(bookid please)");
                         int id = input.nextInt();
@@ -139,6 +146,7 @@ public class App {
                         }
                         break;
                         
+                        //Books a user has loaned out
                         case 4://figure this out
                             /*
                         System.out.println("The following is the books you have loaned");
@@ -147,6 +155,7 @@ public class App {
                         */
                         break;
                         
+                        //logging out
                         case 5:
                             System.out.println("Are you sure you want to logout eg(yes and no)");
                             String ans = input.nextLine().toLowerCase();
@@ -168,5 +177,7 @@ public class App {
             }
                       
          }
+        
+        //END OF THE WHILE LOOP
     }
 }
