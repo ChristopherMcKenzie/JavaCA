@@ -17,16 +17,20 @@ import java.util.List;
  * @author Aleksander Matraszek
  */
 public class BookLoanedDao extends Dao implements BookLoanedDaoInterface {
-
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        BookStock bk = null;
+        Users usr = null;
+        BookStockDao bksDao = new BookStockDao("libraryca");
+        UsersDao uDao = new UsersDao("libraryca");
     public BookLoanedDao(String databaseName) {
         super(databaseName);
     }
     //expermenting
     @Override
     public ArrayList<BookLoaned>getAllInfoOnLoan(){
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        
         ArrayList<BookLoaned> bksLoaned = new ArrayList();
         
         try {
@@ -35,7 +39,8 @@ public class BookLoanedDao extends Dao implements BookLoanedDaoInterface {
             String query = "Select * from bookLoaned";
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
-
+            
+            
             while (rs.next()) {
                 String title = rs.getString("bookName");
                 String uname = rs.getString("userID");
@@ -67,15 +72,11 @@ public class BookLoanedDao extends Dao implements BookLoanedDaoInterface {
 
     @Override
     public ArrayList<BookLoaned> getAllBooksOnLoan(BookStock book) {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        
         ArrayList<BookLoaned> bksLoaned = new ArrayList();
-        BookStock bk = null;
-        Users usr = null;
+        
         int num = book.getBookID();
-        BookStockDao bksDao = new BookStockDao("libraryca");
-        UsersDao uDao = new UsersDao("libraryca");
+       
         try {
             con = getConnection();
 
@@ -115,8 +116,7 @@ public class BookLoanedDao extends Dao implements BookLoanedDaoInterface {
 
     @Override
     public boolean BorrowABook(BookStock book, int userID) {
-        Connection con = null;
-        PreparedStatement ps = null;
+        
         int rowsAffected = 0;
         
         try {
