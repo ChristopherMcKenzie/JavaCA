@@ -79,6 +79,7 @@ public class AdminTestApp {
                 userlog.setUsername(name);
                 userlog.setPassword(password);
                 
+                
                 if(uDao.LogingInUser(name, password).equals(userlog))
                 {
                     int userid = uDao.getUserbyName(name).getUser_id();
@@ -170,7 +171,7 @@ public class AdminTestApp {
                 {
                     System.out.println("The details you have entered is incorrect try again");
                 }
-                else if(uDao.LogingInUser(name, password).equals(userlog) && )
+                else if(uDao.LogingInUser(name, password).equals(userlog) && uDao.getAdminByName(name).getAdmin())
                 {
                     
                 }
