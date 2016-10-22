@@ -21,7 +21,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
 
     @Override
     public ArrayList<Users> getAllUsers() {
-        Connection con = null;
+       Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Users> users = new ArrayList();
@@ -35,7 +35,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
                 users.add(u);
             }
         }catch (SQLException e) {
@@ -75,7 +75,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
                 users.add(u);
             }
         }catch (SQLException e) {
@@ -115,7 +115,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
                 users.add(u);
             }
         }catch (SQLException e) {
@@ -157,7 +157,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             ps.setString(5, u.getLname());
             ps.setString(6, u.getAddress());
             ps.setString(7, u.getEmail());
-            ps.setInt(8, u.getBooksLoaned());
+            ps.setInt(8, 0);
             ps.setInt(9, 0);
             
 
@@ -190,22 +190,27 @@ public class UsersDao extends Dao implements UsersDaoInterface{
     }
 
     @Override
-    public boolean LogingInUser(String name, String password) {
+    public Users LogingInUser(String name, String password) {
        Connection con = null;
         PreparedStatement ps = null;
-        int rowsAffected = 0;
+        ResultSet rs = null;
+        Users u = null;
         
         try{
             con = getConnection();
 
-            String query = "UPDATE users set LoggedIn = 1 Where username = ? AND password = ?";
+            String query = "SELECT * users Where username = ? AND password = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, name);
             ps.setString(2, password);
-           
-                     
-            rowsAffected = ps.executeUpdate(); 
+            rs = ps.executeQuery();
             
+            
+            while(rs.next())
+            {
+            u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"),  rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
+            }
+ 
         }catch (SQLException e) {
             System.out.println("Exception occured in the RemoveUser() method: " + e.getMessage());
             
@@ -223,21 +228,16 @@ public class UsersDao extends Dao implements UsersDaoInterface{
                 
             }
         }
-        if(rowsAffected > 0)
-        {
-            return true;
-        }
-        else
-            return false;
+        return u;
     }
+    
 
     @Override
-    public ArrayList<Users> getUserbyName(String name) {
+    public Users getUserbyName(String name) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ArrayList<Users> users = new ArrayList();
-        
+        Users u = null;
         try{
             con = getConnection();
 
@@ -248,8 +248,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"));
-                users.add(u);
+                u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
             }
         }catch (SQLException e) {
             System.out.println("Exception occured in the getUserbyName() method: " + e.getMessage());
@@ -269,7 +268,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             }
         }
         
-        return users;
+        return u;
     }
 
     @Override
@@ -289,7 +288,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
             
             while(rs.next())
             {
-                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"));
+                Users u = new Users(rs.getString("userName"), rs.getString("password"), rs.getString("Fname"), rs.getString("Lname"), rs.getString("Address"), rs.getString("email"), rs.getInt("booksLoaned"), rs.getInt("Admin"), rs.getInt("LoggedIn"));
                 users.add(u);
             }
         }catch (SQLException e) {

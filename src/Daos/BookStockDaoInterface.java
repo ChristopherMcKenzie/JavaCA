@@ -14,8 +14,10 @@ import java.util.ArrayList;
 public interface BookStockDaoInterface {
     public ArrayList<BookStock>getAllBooks();
     //return all books
-    public ArrayList<BookStock>getABookByName(String bookName);
+    public BookStock getABookByName(String bookName);
     //getting a book by its name
+    public BookStock getABookById(int id);
+    //getting a book by its id
     public ArrayList<BookStock>getABookContainingName(String bookName);
     //getting a book by its name wildcard
     public boolean ReturnABook(String bookName);

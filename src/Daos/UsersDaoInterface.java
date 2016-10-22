@@ -18,9 +18,9 @@ public interface UsersDaoInterface {
       //return all admin users
     public boolean RegistorUser(Users u);
     //registering a user
-    public boolean LogingInUser(String name, String password);
+    public Users LogingInUser(String name, String password);
     //logging in a user
-    public ArrayList<Users>getUserbyName(String name);
+    public Users getUserbyName(String name);
     //get user by name
     public ArrayList<Users>getUserContaingName(String name);
     //get user by name wildcard

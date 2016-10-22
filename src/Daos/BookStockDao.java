@@ -5,6 +5,7 @@ package Daos;
  * @author Chris
  */
 import Dtos.BookStock;
+import Daos.BookStockDaoInterface;
 import Dtos.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -58,11 +59,11 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
 }
 
     @Override
-    public ArrayList<BookStock> getABookByName(String bookName) {
+    public BookStock getABookByName(String bookName) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ArrayList<BookStock> bookStock = new ArrayList();
+        BookStock book = null;
         try
         {
             con = getConnection();
@@ -73,8 +74,7 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
             rs = ps.executeQuery();
             while(rs.next())
             {
-                BookStock book = new BookStock(rs.getInt("bookID") , rs.getString("bookName"), rs.getString("author"), rs.getString("publisher"), rs.getInt("copies"));
-                bookStock.add(book);
+                book = new BookStock(rs.getInt("bookID") , rs.getString("bookName"), rs.getString("author"), rs.getString("publisher"), rs.getInt("copies"));
             }
         }catch (SQLException e) {
             System.out.println("Exception occured in the getABookByName() method: " + e.getMessage());
@@ -93,7 +93,45 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
                 System.out.println("Exception occured in the finally section of the getABookByName() method: " + e.getMessage());
             }
     }
-        return bookStock;
+        return book;
+    }
+    
+    @Override
+    public BookStock getABookById(int id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        BookStock book = null;
+        try
+        {
+            con = getConnection();
+            
+            String query = "Select * from bookstock where bookID = ? ";
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                book = new BookStock(rs.getInt("bookID") , rs.getString("bookName"), rs.getString("author"), rs.getString("publisher"), rs.getInt("copies"));
+            }
+        }catch (SQLException e) {
+            System.out.println("Exception occured in the getABookByName() method: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    freeConnection(con);
+                }
+            } catch (SQLException e) {
+                System.out.println("Exception occured in the finally section of the getABookByName() method: " + e.getMessage());
+            }
+    }
+        return book;
     }
 
     @Override
