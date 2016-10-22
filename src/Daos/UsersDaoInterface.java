@@ -20,6 +20,10 @@ public interface UsersDaoInterface {
     //registering a user
     public Users LogingInUser(String name, String password);
     //logging in a user
+    public Users getAdminByName(String name);
+    //Get admin using the name
+    public int isAdminByName(String name);
+    //Check to see if a user is an admin
     public Users getUserbyName(String name);
     //get user by name
     public ArrayList<Users>getUserContaingName(String name);
