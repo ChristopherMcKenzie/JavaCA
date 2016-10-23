@@ -288,14 +288,20 @@ public class AdminTestApp {
                             }
                             break;
                         case 6:
+                            BookStock bookAdd = new BookStock();
                             System.out.println("Enter in the details of the book");
                             System.out.println("Book name");
                             String bName = input.nextLine();
+                            bookAdd.setBookName(bName);
+                            
                             System.out.println("Book Author");
                             String bAuthor = input.nextLine();
-                            System.out.println("Publisher");
-                            String bPublisher = input.nextLine();
+                            bookAdd.setAuthor(bAuthor);
                             
+                            System.out.println("Publisher");                          
+                            String bPublisher = input.nextLine();
+                            bookAdd.setPublisher(bPublisher);
+                            bDao.AddingABook(bookAdd);
                             
                     }
                     
