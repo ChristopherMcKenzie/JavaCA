@@ -287,13 +287,14 @@ public class AdminTestApp {
                                 flag = false;
                             }
                             break;
+                            
                             //Add in a book
                         case 6:
                             BookStock bookAdd = new BookStock();
                             System.out.println("Enter in the details of the book");
                             System.out.println("Book name");
-                            String bName = input.nextLine();
-                            bookAdd.setBookName(bName);
+                            String bNameAdd = input.nextLine();
+                            bookAdd.setBookName(bNameAdd);
                             
                             System.out.println("Book Author");
                             String bAuthor = input.nextLine();
@@ -304,9 +305,47 @@ public class AdminTestApp {
                             bookAdd.setPublisher(bPublisher);
                             bDao.AddingABook(bookAdd);
                             break;
+                            
                             //Edit a book
                         case 7:
+                            System.out.println("Enter in a book name to edit it's details");
+                            String bNameEdit = input.nextLine();
                             
+                            bDao.EditingABook(bNameEdit);
+                            System.out.println("Book name is now " + bNameEdit);
+                            break;
+                            
+                        //Edit the amount of copies for a book     
+                        case 8:
+                            System.out.println("Do you want to increase or decrease the amount of copies?");
+                            String incOrDec = input.nextLine().toLowerCase();
+                            
+                            if(incOrDec.equals("increase"))
+                            {
+                                System.out.println("Enter in the books ID");
+                                int bookID = input.nextInt();
+                                
+                                System.out.println("Enter in the amount of extra copies");
+                                int copiesInc = input.nextInt();
+                                bDao.IncreasingCopiesBook(copiesInc, bookID);
+                            }
+                            else if(incOrDec.equals("decrease"))
+                            {
+                                System.out.println("Enter in the books ID");
+                                int bookID = input.nextInt();
+                                
+                                System.out.println("Enter in the amount of copies taken out");
+                                int copiesDex = input.nextInt();
+                                bDao.DescresingCopiesBook(copiesDex, bookID);
+                                
+                            }
+                            else
+                            {
+                                System.out.println("Error");
+                            }
+                            break;
+                            //Remove a book
+                        case 9:
                             
                     }
                     

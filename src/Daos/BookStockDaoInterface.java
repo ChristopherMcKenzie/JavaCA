@@ -32,9 +32,9 @@ public interface BookStockDaoInterface {
     //Adding a book to database
     public boolean EditingABook(String bookName);
     //admin should be able to edit a record(admin only)
-    public boolean IncreasingCopiesBook(int bookID);
+    public boolean IncreasingCopiesBook(int copies, int bookID);
     //admin increses the book copies(admin only)
-    public boolean DescresingCopiesBook(int bookId);
+    public boolean DescresingCopiesBook(int copies, int bookId);
     //admin decreses number of book copies(admin only)
     
 }
