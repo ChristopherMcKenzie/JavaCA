@@ -287,6 +287,7 @@ public class AdminTestApp {
                                 flag = false;
                             }
                             break;
+                            //Add in a book
                         case 6:
                             BookStock bookAdd = new BookStock();
                             System.out.println("Enter in the details of the book");
@@ -302,6 +303,10 @@ public class AdminTestApp {
                             String bPublisher = input.nextLine();
                             bookAdd.setPublisher(bPublisher);
                             bDao.AddingABook(bookAdd);
+                            break;
+                            //Edit a book
+                        case 7:
+                            
                             
                     }
                     
