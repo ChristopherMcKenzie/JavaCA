@@ -301,7 +301,7 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
         Admin controlled methods
     */
     @Override
-    public boolean EditingABook(int bookID) {
+    public boolean EditingABook(String bookName) {
         Connection con = null;
         PreparedStatement ps = null;
         int rowsAffected = 0;
@@ -309,9 +309,9 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
         try{
             con = getConnection();
 
-            String query = "UPDATE bookstock set bookID WHERE bookID = ?";
+            String query = "UPDATE bookstock set bookName WHERE bookName = ?";
             ps = con.prepareStatement(query);
-            ps.setInt(1, bookID);
+            ps.setString(1, bookName);
          
             rowsAffected = ps.executeUpdate(); 
             
