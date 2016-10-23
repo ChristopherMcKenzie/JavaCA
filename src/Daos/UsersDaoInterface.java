@@ -22,7 +22,7 @@ public interface UsersDaoInterface {
     //logging in a user
     public Users getAdminByName(String name);
     //Get admin using the name
-    public int isAdminByName(String name);
+    public int isAdminByID(int userID);
     //Check to see if a user is an admin
     public Users getUserbyName(String name);
     //get user by name

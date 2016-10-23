@@ -345,7 +345,29 @@ public class AdminTestApp {
                             }
                             break;
                             //Remove a book
+                        
                         case 9:
+                            System.out.println("Enter in a books ID");
+                            int removeBook = input.nextInt();
+                            
+                            bDao.RemoveABook(removeBook);
+                            System.out.println("Book has been removed");
+                            break;
+                        
+                        //Delete a user
+                        case 10:
+                            System.out.println("Enter in a users ID \n IF THE USER IS AN ADMIN THEY WILL NOT BE DELETED");
+                            int removeUserID = input.nextInt();
+                            if(uDao.isAdminByID(removeUserID) == 0)
+                            {
+                                uDao.RemoveUser(removeUserID);
+                                System.out.println("User successfully removed");
+                            }
+                            else if(uDao.isAdminByID(removeUserID) == 1)
+                            {
+                                System.out.println("User cannot be deleted");
+                            }
+                        break;
                             
                     }
                     

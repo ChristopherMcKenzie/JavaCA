@@ -395,7 +395,7 @@ public class UsersDao extends Dao implements UsersDaoInterface{
     }
 
     @Override
-    public int isAdminByName(String name) {
+    public int isAdminByID(int userID) {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -403,9 +403,9 @@ public class UsersDao extends Dao implements UsersDaoInterface{
         try{
             con = getConnection();
 
-            String query = "Select * from users Where username = ?";
+            String query = "Select * from users Where userID = ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, name);
+            ps.setInt(1, userID);
             rs = ps.executeQuery(); 
             
             while(rs.next())
