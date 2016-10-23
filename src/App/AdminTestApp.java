@@ -289,6 +289,13 @@ public class AdminTestApp {
                             break;
                         case 6:
                             System.out.println("Enter in the details of the book");
+                            System.out.println("Book name");
+                            String bName = input.nextLine();
+                            System.out.println("Book Author");
+                            String bAuthor = input.nextLine();
+                            System.out.println("Publisher");
+                            String bPublisher = input.nextLine();
+                            
                             
                     }
                     

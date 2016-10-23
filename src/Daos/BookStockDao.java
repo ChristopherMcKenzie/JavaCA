@@ -268,7 +268,7 @@ public class BookStockDao extends Dao implements BookStockDaoInterface {
             ps.setString(2, b.getBookName());
             ps.setString(3, b.getAuthor());
             ps.setString(4, b.getPublisher());
-            ps.setInt(5, b.getCopies());
+            ps.setInt(5, 10);
        
             rowsAffected = ps.executeUpdate(); 
             
